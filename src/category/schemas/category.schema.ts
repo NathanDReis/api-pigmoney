@@ -7,27 +7,19 @@ export type CategoryDocument = HydratedDocument<Category>;
 
 @Schema({ timestamps: true })
 export class Category extends BaseEntity {
-    @Prop({ type: String, required: true })
+    @Prop({ required: true })
     name: string;
 
-    @Prop({ type: String, required: true })
+    @Prop({ required: true })
     icon: string;
 
-    @Prop({ type: String, required: true })
+    @Prop({ required: true })
     colorHex: string;
 
-    @Prop({ 
-        type: Types.ObjectId, 
-        ref: User.name, 
-        required: true,
-    })
+    @Prop({ ref: User.name, required: true })
     userId: Types.ObjectId;
 
-    @Prop({ 
-        type: Boolean, 
-        required: false, 
-        default: false,
-    })
+    @Prop({ required: false, default: false })
     global?: boolean;
 }
 

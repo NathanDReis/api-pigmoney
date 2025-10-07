@@ -6,20 +6,16 @@ export type UserDocument = HydratedDocument<User>;
 
 @Schema({ timestamps: true })
 export class User extends BaseEntity {
-    @Prop({  type: String, required: true })
+    @Prop({ required: true })
     fullName: string;
 
-    @Prop({ type: String, required: true })
+    @Prop({ required: true })
     email: string;
 
-    @Prop({ type: String, required: true })
+    @Prop({ required: true })
     userName: string;
 
-    @Prop({ 
-        type: String, 
-        required: true, 
-        select: false 
-    })
+    @Prop({ required: true, select: false })
     password: string;
 }
 

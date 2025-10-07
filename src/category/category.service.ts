@@ -6,7 +6,7 @@ import { Category } from './schemas/category.schema';
 
 @Injectable()
 export class CategoryService {
-constructor(
+  constructor(
     @Inject('CATEGORY_REPOSITORY')
     private readonly categoryRepository: ICategoryRepository,
   ) {}

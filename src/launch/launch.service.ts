@@ -1,26 +1,46 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateLaunchDto } from './dto/create-launch.dto';
 import { UpdateLaunchDto } from './dto/update-launch.dto';
+import { type ILaunchRepository } from './interfaces/lauch-repository.interface';
+import { Launch } from './schemas/launch.schema';
 
 @Injectable()
 export class LaunchService {
-  create(createLaunchDto: CreateLaunchDto) {
-    return 'This action adds a new launch';
+  constructor(
+    @Inject('LAUNCH_REPOSITORY')
+    private readonly launchRepository: ILaunchRepository,
+  ) {}
+
+  async create(createLaunchDto: CreateLaunchDto) {
+    return this.launchRepository.create(createLaunchDto);
   }
 
-  findAll() {
-    return `This action returns all launch`;
+  async findAll(userId: string): Promise<Launch[]> {
+    if (!userId) 
+      throw new Error("Usuário sem permissão para ver lançamentos");
+    return this.launchRepository.findAll(userId);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} launch`;
+  async findOne(id: string): Promise<Launch | null> {
+    return this.launchRepository.findById(id);
   }
 
-  update(id: number, updateLaunchDto: UpdateLaunchDto) {
-    return `This action updates a #${id} launch`;
+  async update(
+    id: string, 
+    updateLaunchDto: UpdateLaunchDto
+  ): Promise<Launch | null> {
+    return this.launchRepository.update(id, updateLaunchDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} launch`;
+  async remove(id: string): Promise<Launch | null> {
+    return this.launchRepository.softDelete(id);
+  }
+
+  async restore(id: string): Promise<Launch | null> {
+    return this.launchRepository.restore(id);
+  }
+
+  async hardDelete(id: string): Promise<boolean> {
+    return this.launchRepository.hardDelete(id);
   }
 }
