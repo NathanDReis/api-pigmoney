@@ -27,7 +27,7 @@ export class UserMongoRepository implements IUserRepository {
 
   async findByEmail(email: string): Promise<User | null> {
     return this.userModel.findOne({ email, isDeleted: false })
-      .select('+password').exec();;
+      .select('+password').exec();
   }
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User | null> {

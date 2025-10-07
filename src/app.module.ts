@@ -9,7 +9,6 @@ import { LaunchModule } from './launch/launch.module';
 import { CategoryModule } from './category/category.module';
 import { AccountModule } from './account/account.module';
 import { PerfilModule } from './perfil/perfil.module';
-import { TransferModule } from './accounts/transfer/transfer.module';
 import { TransferAccountsModule } from './transfer-accounts/transfer-accounts.module';
 
 @Module({
@@ -39,9 +38,7 @@ import { TransferAccountsModule } from './transfer-accounts/transfer-accounts.mo
     AccountModule,
     
     PerfilModule,
-    
-    TransferModule,
-    
+        
     TransferAccountsModule
   ],
   controllers: [AppController],
