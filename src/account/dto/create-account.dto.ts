@@ -21,7 +21,7 @@ export class CreateAccountDto {
     type: AccountType;
 
     @IsNotEmpty({ message: 'Saldo é obrigatório' })
-    @IsNumber({}, { message: 'Salde deve ser um número' })
+    @IsNumber({}, { message: 'Saldo deve ser um número' })
     balance: number; // Saldo atual
 
     @IsOptional()

@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
 import { LaunchService } from './launch.service';
 import { CreateLaunchDto } from './dto/create-launch.dto';
 import { UpdateLaunchDto } from './dto/update-launch.dto';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('launch')
 export class LaunchController {
   constructor(private readonly launchService: LaunchService) {}

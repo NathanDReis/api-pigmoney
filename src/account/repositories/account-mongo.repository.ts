@@ -7,7 +7,7 @@ import { CreateAccountDto } from '../dto/create-account.dto';
 import { UpdateAccountDto } from '../dto/update-account.dto';
 
 @Injectable()
-export class UserMongoRepository implements IAccountRepository {
+export class AccountMongoRepository implements IAccountRepository {
   constructor(
     @InjectModel(Account.name) private accountModel: Model<AccountDocument>,
   ) {}

@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query } from '@nestjs/common';
 import { AccountService } from './account.service';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('account')
 export class AccountController {
   constructor(private readonly accountService: AccountService) {}
@@ -14,8 +15,8 @@ export class AccountController {
   }
 
   @Get()
-  findAll() {
-    return this.accountService.findAll();
+  findAll(@Query('userId') userId: string) {
+    return this.accountService.findAll(userId);
   }
 
   @Get(':id')
@@ -34,13 +35,11 @@ export class AccountController {
   }
 
   @Patch('restore/:id')
-  @UseGuards(JwtAuthGuard)
   restore(@Param('id') id: string) {
     return this.accountService.restore(id);
   }
 
   @Delete('hardDelete/:id')
-  @UseGuards(JwtAuthGuard)
   hardDelete(@Param('id') id: string) {
     return this.accountService.hardDelete(id);
   }
