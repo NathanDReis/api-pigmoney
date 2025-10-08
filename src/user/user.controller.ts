@@ -23,43 +23,43 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get()
+  @UseGuards(JwtAuthGuard)
   findAll() {
     return this.userService.findAll();
   }
 
   @Get(':id')
+  @UseGuards(JwtAuthGuard)
   findOne(@Param('id') id: string) {
     return this.userService.findOne(id);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(id, updateUserDto);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   remove(@Param('id') id: string) {
     return this.userService.remove(id);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get('findByEmail/:email')
   findByEmail(@Param('email') email: string) {
     return this.userService.findByEmail(email);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Patch('restore/:id')
+  @UseGuards(JwtAuthGuard)
   restore(@Param('id') id: string) {
     return this.userService.restore(id);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Delete('hardDelete/:id')
+  @UseGuards(JwtAuthGuard)
   hardDelete(@Param('id') id: string) {
     return this.userService.hardDelete(id);
   }
