@@ -9,18 +9,18 @@ import {
 } from "class-validator";
 
 export class CreateCategoryDto {
-    @IsString({ message: 'Nome deve ser uma string' })
     @IsNotEmpty({ message: 'Nome é obrigatório' })
+    @IsString({ message: 'Nome deve ser uma string' })
     @MinLength(3, { message: 'Nome deve ter no mínimo 3 caracteres' })
     @MaxLength(50, { message: 'Nome deve ter no máximo 50 caracteres' })
     name: string;
 
-    @IsString({ message: 'Ícone deve ser uma string' })
     @IsNotEmpty({ message: 'Ícone é obrigatório' })
+    @IsString({ message: 'Ícone deve ser uma string' })
     icon: string;
 
-    @IsString({ message: 'Cor deve ser uma string' })
     @IsNotEmpty({ message: 'Cor é obrigatório' })
+    @IsString({ message: 'Cor deve ser uma string' })
     colorHex: string;
 
     @IsNotEmpty({ message: 'Usuário é obrigatório' })

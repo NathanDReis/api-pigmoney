@@ -2,8 +2,8 @@ import { Injectable, UseGuards } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Transfer, TransferDocument } from '../schemas/transfer.schema';
-import { CreateTransferAccountDto } from '../dto/create-transfer.dto';
-import { UpdateTransferAccountDto } from '../dto/update-transfer.dto';
+import { CreateTransferDto } from '../dto/create-transfer.dto';
+import { UpdateTransferDto } from '../dto/update-transfer.dto';
 import { ITransferRepository } from '../interfaces/transfer-repository.interface';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
@@ -14,7 +14,7 @@ export class TransferMongoRepository implements ITransferRepository {
     @InjectModel(Transfer.name) private transferModel: Model<TransferDocument>,
   ) {}
 
-  async create(createTransferDto: CreateTransferAccountDto): Promise<Transfer> {
+  async create(createTransferDto: CreateTransferDto): Promise<Transfer> {
     const transfer = new this.transferModel(createTransferDto);
     return transfer.save();
   }
@@ -32,7 +32,7 @@ export class TransferMongoRepository implements ITransferRepository {
       .select('+password').exec();
   }
 
-  async update(id: string, updateTransferDto: UpdateTransferAccountDto): Promise<Transfer | null> {
+  async update(id: string, updateTransferDto: UpdateTransferDto): Promise<Transfer | null> {
     return this.transferModel
       .findByIdAndUpdate(id, updateTransferDto, { new: true })
       .exec();

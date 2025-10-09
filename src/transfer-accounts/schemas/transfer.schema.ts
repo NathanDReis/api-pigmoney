@@ -1,29 +1,24 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
+import { Account } from 'src/account/schemas/account.schema';
 import { BaseEntity } from 'src/common/schemas/base-entity.schema';
-import { Perfil } from 'src/perfil/schemas/perfil.schema';
+import { User } from 'src/user/schemas/user.schema';
 
 export type TransferDocument = HydratedDocument<Transfer>;
 
 @Schema({ timestamps: true })
 export class Transfer extends BaseEntity {
-    @Prop({ required: true })
-    fullName: string;
+    @Prop({ ref: User.name, required: true })
+    userId: Types.ObjectId;
+
+    @Prop({ ref: Account.name, required: true })
+    fromAccount: Types.ObjectId;
+
+    @Prop({ ref: Account.name, required: true })
+    toAccount: Types.ObjectId;
 
     @Prop({ required: true })
-    email: string;
-
-    @Prop({ required: true })
-    telephone: string;
-
-    @Prop({ ref: Perfil.name, required: true })
-    perfilId: Types.ObjectId;
-
-    @Prop({ required: true })
-    userName: string;
-
-    @Prop({ required: true, select: false })
-    password: string;
+    amount: number;
 }
 
 export const TransferSchema = SchemaFactory.createForClass(Transfer);

@@ -1,17 +1,17 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CreateTransferAccountDto } from './dto/create-transfer.dto';
-import { UpdateTransferAccountDto } from './dto/update-transfer.dto';
+import { CreateTransferDto } from './dto/create-transfer.dto';
+import { UpdateTransferDto } from './dto/update-transfer.dto';
 import { type ITransferRepository } from './interfaces/transfer-repository.interface';
 import { Transfer } from './schemas/transfer.schema';
 
 @Injectable()
-export class TransfersService {
+export class TransferAccountsService {
   constructor(
     @Inject('TRANSFER_REPOSITORY')
     private readonly transferRepository: ITransferRepository,
   ) {}
 
-  async create(createTransferDto: CreateTransferAccountDto) {
+  async create(createTransferDto: CreateTransferDto) {
     return this.transferRepository.create(createTransferDto);
   }
 
@@ -21,9 +21,13 @@ export class TransfersService {
     return this.transferRepository.findAll(userId);
   }
 
+  async findOne(id: string): Promise<Transfer | null> {
+    return this.transferRepository.findById(id);
+  }
+
   async update(
     id: string, 
-    updateTransferDto: UpdateTransferAccountDto
+    updateTransferDto: UpdateTransferDto
   ): Promise<Transfer | null> {
     return this.transferRepository.update(id, updateTransferDto);
   }

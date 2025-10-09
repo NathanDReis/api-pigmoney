@@ -1,21 +1,20 @@
-import { IsNotEmpty } from "class-validator";
+import { IsMongoId, IsNotEmpty, IsNumber, IsPositive } from "class-validator";
 
-export class CreateTransferAccountDto {
-    @IsNotEmpty({ message: 'Nome completo é obrigatório' })
-    fullName: string;
+export class CreateTransferDto {
+    @IsNotEmpty({ message: 'Usuário é obrigatório' })
+    @IsMongoId({ message: 'Usuário deve ser um ObjectId válido' })
+    userId: string;
 
-    @IsNotEmpty({ message: 'Email é obrigatório' })
-    email: string;
+    @IsNotEmpty({ message: 'Conta de origem é obrigatório' })
+    @IsMongoId({ message: 'Conta de origem deve ser um ObjectId válido' })
+    fromAccount: string;
+    
+    @IsNotEmpty({ message: 'Conta de destino é obrigatório' })
+    @IsMongoId({ message: 'Conta de destino deve ser um ObjectId válido' })
+    toAccount: string;
 
-    @IsNotEmpty({ message: 'Telefone é obrigatório' })
-    telephone: string;
-
-    @Prop({ ref: Perfil.name, required: true })
-    perfilId: Types.ObjectId;
-
-    @IsNotEmpty({ message: 'Nome de usuário é obrigatório' })
-    userName: string;
-
-    @IsNotEmpty({ message: 'Nome de usuário é obrigatório' })
-    password: string;
+    @IsNotEmpty({ message: 'Quantia é obrigatório' })
+    @IsNumber({}, { message: 'Quantia deve ser um number' })
+    @IsPositive({ message: 'Quantia deve ser positiva' })
+    amount: number;
 }
