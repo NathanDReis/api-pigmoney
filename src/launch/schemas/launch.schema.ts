@@ -9,7 +9,6 @@ import { User } from 'src/user/schemas/user.schema';
 export enum LaunchType {
     INCOME = 'income',     // Receita (adiciona)
     EXPENSE = 'expense',   // Despesa (subtrai)
-    TRANSFER = 'transfer'  // Transferência entre contas
 }
 
 export type LaunchDocument = HydratedDocument<Launch>;

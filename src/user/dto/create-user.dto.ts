@@ -4,22 +4,31 @@ import {
   IsString, 
   MinLength,
   MaxLength,
-  Matches 
+  Matches, 
+  IsMongoId
 } from 'class-validator';
 
 export class CreateUserDto {
-  @IsString({ message: 'Nome completo deve ser uma string' })
   @IsNotEmpty({ message: 'Nome completo é obrigatório' })
+  @IsString({ message: 'Nome completo deve ser uma string' })
   @MinLength(3, { message: 'Nome completo deve ter no mínimo 3 caracteres' })
   @MaxLength(100, { message: 'Nome completo deve ter no máximo 100 caracteres' })
   fullName: string;
 
-  @IsEmail({}, { message: 'Email inválido' })
   @IsNotEmpty({ message: 'Email é obrigatório' })
+  @IsEmail({}, { message: 'Email inválido' })
   email: string;
 
-  @IsString({ message: 'Nome de usuário deve ser uma string' })
+  @IsNotEmpty({ message: 'Telefone é obrigatório' })
+  @IsString({ message: 'Telefone deve ser uma string' })
+  telephone: string;
+
+  @IsNotEmpty({ message: 'Perfil é obrigatório' })
+  @IsMongoId({ message: 'Perfil deve ser um ObjectId válido' })
+  perfilId: string;
+
   @IsNotEmpty({ message: 'Nome de usuário é obrigatório' })
+  @IsString({ message: 'Nome de usuário deve ser uma string' })
   @MinLength(3, { message: 'Nome de usuário deve ter no mínimo 3 caracteres' })
   @MaxLength(30, { message: 'Nome de usuário deve ter no máximo 30 caracteres' })
   @Matches(/^[a-zA-Z0-9_-]+$/, {
@@ -27,8 +36,8 @@ export class CreateUserDto {
   })
   userName: string;
 
-  @IsString({ message: 'Senha deve ser uma string' })
   @IsNotEmpty({ message: 'Senha é obrigatória' })
+  @IsString({ message: 'Senha deve ser uma string' })
   @MinLength(6, { message: 'Senha deve ter no mínimo 6 caracteres' })
   @MaxLength(255, { message: 'Senha deve ter no máximo 255 caracteres' })
   @Matches(

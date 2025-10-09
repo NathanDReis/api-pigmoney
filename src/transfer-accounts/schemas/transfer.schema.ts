@@ -3,10 +3,10 @@ import { HydratedDocument, Types } from 'mongoose';
 import { BaseEntity } from 'src/common/schemas/base-entity.schema';
 import { Perfil } from 'src/perfil/schemas/perfil.schema';
 
-export type UserDocument = HydratedDocument<User>;
+export type TransferDocument = HydratedDocument<Transfer>;
 
 @Schema({ timestamps: true })
-export class User extends BaseEntity {
+export class Transfer extends BaseEntity {
     @Prop({ required: true })
     fullName: string;
 
@@ -26,4 +26,4 @@ export class User extends BaseEntity {
     password: string;
 }
 
-export const UserSchema = SchemaFactory.createForClass(User);
+export const TransferSchema = SchemaFactory.createForClass(Transfer);

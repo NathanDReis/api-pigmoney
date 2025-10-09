@@ -14,16 +14,16 @@ export enum LaunchType {
 }
 
 export class CreateLaunchDto {
-  @IsNotEmpty({ message: 'userId é obrigatório' })
-  @IsMongoId({ message: 'userId deve ser um ObjectId válido' })
+  @IsNotEmpty({ message: 'Usuário é obrigatório' })
+  @IsMongoId({ message: 'Usuário deve ser um ObjectId válido' })
   userId: string;
 
-  @IsNotEmpty({ message: 'categoryId é obrigatório' })
-  @IsMongoId({ message: 'categoryId deve ser um ObjectId válido' })
+  @IsNotEmpty({ message: 'Categoria é obrigatório' })
+  @IsMongoId({ message: 'Categoria deve ser um ObjectId válido' })
   categoryId: string;
 
-  @IsNotEmpty({ message: 'accountId é obrigatório' })
-  @IsMongoId({ message: 'accountId deve ser um ObjectId válido' })
+  @IsNotEmpty({ message: 'Conta é obrigatório' })
+  @IsMongoId({ message: 'Conta deve ser um ObjectId válido' })
   accountId: string;
 
   @IsOptional()

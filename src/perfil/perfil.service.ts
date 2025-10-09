@@ -1,26 +1,44 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreatePerfilDto } from './dto/create-perfil.dto';
 import { UpdatePerfilDto } from './dto/update-perfil.dto';
+import { Perfil } from './schemas/perfil.schema';
+import { type IPerfilRepository } from './interfaces/perfil-repository.interface';
 
 @Injectable()
 export class PerfilService {
-  create(createPerfilDto: CreatePerfilDto) {
-    return 'This action adds a new perfil';
+  constructor(
+    @Inject('PERFIL_REPOSITORY')
+    private readonly perfilRepository: IPerfilRepository,
+  ) {}
+
+  async create(createPerfilDto: CreatePerfilDto) {
+    return this.perfilRepository.create(createPerfilDto);
   }
 
-  findAll() {
-    return `This action returns all perfil`;
+  async findAll(): Promise<Perfil[]> {
+    return this.perfilRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} perfil`;
+  async findOne(id: string): Promise<Perfil | null> {
+    return this.perfilRepository.findById(id);
   }
 
-  update(id: number, updatePerfilDto: UpdatePerfilDto) {
-    return `This action updates a #${id} perfil`;
+  async update(
+    id: string, 
+    updatePerfilDto: UpdatePerfilDto
+  ): Promise<Perfil | null> {
+    return this.perfilRepository.update(id, updatePerfilDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} perfil`;
+  async remove(id: string): Promise<Perfil | null> {
+    return this.perfilRepository.softDelete(id);
+  }
+
+  async restore(id: string): Promise<Perfil | null> {
+    return this.perfilRepository.restore(id);
+  }
+
+  async hardDelete(id: string): Promise<boolean> {
+    return this.perfilRepository.hardDelete(id);
   }
 }

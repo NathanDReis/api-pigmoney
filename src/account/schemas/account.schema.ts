@@ -18,7 +18,7 @@ export class Account extends BaseEntity {
     userId: Types.ObjectId;
 
     @Prop({ required: true })
-    name: string; // Ex: "Carteira", "Nubank", "Itaú"
+    name: string;
 
     @Prop({ 
         type: String,

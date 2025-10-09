@@ -17,8 +17,12 @@ export class AccountMongoRepository implements IAccountRepository {
     return user.save();
   }
 
-  async findAll(): Promise<Account[]> {
-    return this.accountModel.find({ isDeleted: false }).exec();
+  async findAll(userId: string): Promise<Account[]> {
+    return this.accountModel.find({ 
+      isDeleted: false,
+      userId
+    })
+    .exec();
   }
 
   async findById(id: string): Promise<Account | null> {
