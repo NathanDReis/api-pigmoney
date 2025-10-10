@@ -14,6 +14,11 @@ export class UserService {
   ) {}
 
   async create(createUserDto: CreateUserDto) {
+    const exist = await this.findByEmail(createUserDto.email);
+    if (exist) {
+      throw new Error("Este usuário já existe");
+    }
+
     const salt = await bcrypt.genSalt();
     createUserDto.password = await bcrypt.hash(createUserDto.password, salt);
     return this.userRepository.create(createUserDto);

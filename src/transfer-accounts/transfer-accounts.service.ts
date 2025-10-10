@@ -12,12 +12,14 @@ export class TransferAccountsService {
   ) {}
 
   async create(createTransferDto: CreateTransferDto) {
+    if (createTransferDto.fromAccount === createTransferDto.toAccount) {
+      throw new Error('As contas de transferência devem ser diferentes');
+    }
+
     return this.transferRepository.create(createTransferDto);
   }
 
   async findAll(userId: string): Promise<Transfer[]> {
-    if (!userId) 
-      throw new Error("Usuário sem permissão para ver transferências");
     return this.transferRepository.findAll(userId);
   }
 

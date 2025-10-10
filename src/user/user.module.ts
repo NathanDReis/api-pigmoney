@@ -4,6 +4,7 @@ import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { User, UserSchema } from './schemas/user.schema';
 import { UserMongoRepository } from './repositories/user-mongo.repository';
+import { PerfilModule } from 'src/perfil/perfil.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { UserMongoRepository } from './repositories/user-mongo.repository';
       name: User.name, 
       schema: UserSchema 
     }]),
+    PerfilModule,
   ],
   controllers: [UserController],
   providers: [

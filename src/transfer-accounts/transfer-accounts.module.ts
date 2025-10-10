@@ -4,6 +4,7 @@ import { TransferAccountsController } from './transfer-accounts.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Transfer, TransferSchema } from './schemas/transfer.schema';
 import { TransferMongoRepository } from './repositories/transfer-mongo.repository';
+import { PerfilModule } from 'src/perfil/perfil.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { TransferMongoRepository } from './repositories/transfer-mongo.repositor
       name: Transfer.name,
       schema: TransferSchema,
     }]),
+    PerfilModule,
   ],
   controllers: [TransferAccountsController],
   providers: [

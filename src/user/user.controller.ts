@@ -13,6 +13,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CurrentUser } from 'src/common/decorator/current-user.decorator';
+import { PermissionsGuard } from 'src/auth/guards/permissions.guard';
+import { Permissions } from 'src/common/decorator/permissions.decorator';
 
 @Controller('user')
 export class UserController {
@@ -24,7 +26,8 @@ export class UserController {
   }
 
   @Get('all')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, PermissionsGuard)
+  @Permissions('admin', 'user')
   findAll() {
     return this.userService.findAll();
   }
@@ -51,13 +54,15 @@ export class UserController {
   }
 
   @Patch('restore/:id')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, PermissionsGuard)
+  @Permissions('admin')
   restore(@Param('id') id: string) {
     return this.userService.restore(id);
   }
 
   @Delete('hardDelete/:id')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, PermissionsGuard)
+  @Permissions('admin')
   hardDelete(@Param('id') id: string) {
     return this.userService.hardDelete(id);
   }

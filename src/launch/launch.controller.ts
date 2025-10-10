@@ -4,8 +4,10 @@ import { CreateLaunchDto } from './dto/create-launch.dto';
 import { UpdateLaunchDto } from './dto/update-launch.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CurrentUser } from 'src/common/decorator/current-user.decorator';
+import { PermissionsGuard } from 'src/auth/guards/permissions.guard';
+import { Permissions } from 'src/common/decorator/permissions.decorator';
 
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, PermissionsGuard)
 @Controller('launch')
 export class LaunchController {
   constructor(private readonly launchService: LaunchService) {}
@@ -40,11 +42,13 @@ export class LaunchController {
   }
 
   @Patch('restore/:id')
+  @Permissions('admin')
   restore(@Param('id') id: string) {
     return this.launchService.restore(id);
   }
 
   @Delete('hardDelete/:id')
+  @Permissions('admin')
   hardDelete(@Param('id') id: string) {
     return this.launchService.hardDelete(id);
   }

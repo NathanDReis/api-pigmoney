@@ -4,8 +4,10 @@ import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CurrentUser } from 'src/common/decorator/current-user.decorator';
+import { PermissionsGuard } from 'src/auth/guards/permissions.guard';
+import { Permissions } from 'src/common/decorator/permissions.decorator';
 
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, PermissionsGuard)
 @Controller('account')
 export class AccountController {
   constructor(private readonly accountService: AccountService) {}
@@ -40,11 +42,13 @@ export class AccountController {
   }
 
   @Patch('restore/:id')
+  @Permissions('admin')
   restore(@Param('id') id: string) {
     return this.accountService.restore(id);
   }
 
   @Delete('hardDelete/:id')
+  @Permissions('admin')
   hardDelete(@Param('id') id: string) {
     return this.accountService.hardDelete(id);
   }

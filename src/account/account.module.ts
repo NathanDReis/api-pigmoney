@@ -4,6 +4,7 @@ import { AccountController } from './account.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Account, AccountSchema } from './schemas/account.schema';
 import { AccountMongoRepository } from './repositories/account-mongo.repository';
+import { PerfilModule } from 'src/perfil/perfil.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { AccountMongoRepository } from './repositories/account-mongo.repository'
       name: Account.name,
       schema: AccountSchema
     }]),
+    PerfilModule,
   ],
   controllers: [AccountController],
   providers: [

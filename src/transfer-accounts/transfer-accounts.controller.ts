@@ -13,8 +13,10 @@ import { CreateTransferDto } from './dto/create-transfer.dto';
 import { UpdateTransferDto } from './dto/update-transfer.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CurrentUser } from 'src/common/decorator/current-user.decorator';
+import { PermissionsGuard } from 'src/auth/guards/permissions.guard';
+import { Permissions } from 'src/common/decorator/permissions.decorator';
 
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, PermissionsGuard)
 @Controller('transfer-accounts')
 export class TransferAccountsController {
   constructor(private readonly transferAccountsService: TransferAccountsService) {}
@@ -49,11 +51,13 @@ export class TransferAccountsController {
   }
 
   @Patch('restore/:id')
+  @Permissions('admin')
   restore(@Param('id') id: string) {
     return this.transferAccountsService.restore(id);
   }
 
   @Delete('hardDelete/:id')
+  @Permissions('admin')
   hardDelete(@Param('id') id: string) {
     return this.transferAccountsService.hardDelete(id);
   }

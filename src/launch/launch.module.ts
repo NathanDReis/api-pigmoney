@@ -4,6 +4,7 @@ import { LaunchController } from './launch.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Launch, LaunchSchema } from './schemas/launch.schema';
 import { LaunchMongoRepository } from './repositories/launch-mongo.repository';
+import { PerfilModule } from 'src/perfil/perfil.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { LaunchMongoRepository } from './repositories/launch-mongo.repository';
       name: Launch.name,
       schema: LaunchSchema
     }]),
+    PerfilModule,
   ],
   controllers: [LaunchController],
   providers: [

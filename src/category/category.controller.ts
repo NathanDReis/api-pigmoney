@@ -4,6 +4,8 @@ import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CurrentUser } from 'src/common/decorator/current-user.decorator';
+import { PermissionsGuard } from 'src/auth/guards/permissions.guard';
+import { Permissions } from 'src/common/decorator/permissions.decorator';
 
 @Controller('category')
 export class CategoryController {
@@ -37,13 +39,15 @@ export class CategoryController {
   }
 
   @Patch('restore/:id')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, PermissionsGuard)
+  @Permissions('admin')
   restore(@Param('id') id: string) {
     return this.categoryService.restore(id);
   }
 
   @Delete('hardDelete/:id')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, PermissionsGuard)
+  @Permissions('admin')
   hardDelete(@Param('id') id: string) {
     return this.categoryService.hardDelete(id);
   }

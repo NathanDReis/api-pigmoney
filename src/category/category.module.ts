@@ -4,6 +4,7 @@ import { CategoryController } from './category.controller';
 import { CategoryMongoRepository } from './repositories/category-mongo.repository';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Category, CategorySchema } from './schemas/category.schema';
+import { PerfilModule } from 'src/perfil/perfil.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { Category, CategorySchema } from './schemas/category.schema';
       name: Category.name, 
       schema: CategorySchema 
     }]),
+    PerfilModule,
   ],
   controllers: [CategoryController],
   providers: [

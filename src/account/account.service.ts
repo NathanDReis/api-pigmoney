@@ -16,8 +16,6 @@ export class AccountService {
   }
 
   findAll(userId: string): Promise<Account[]> {
-    if (!userId)
-      throw new Error("Usuário sem permissão para ver");
     return this.accountRepository.findAll(userId);
   }
 

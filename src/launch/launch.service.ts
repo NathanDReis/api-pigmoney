@@ -16,8 +16,6 @@ export class LaunchService {
   }
 
   async findAll(userId: string): Promise<Launch[]> {
-    if (!userId) 
-      throw new Error("Usuário sem permissão para ver lançamentos");
     return this.launchRepository.findAll(userId);
   }
 
