@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { AccountService } from './account.service';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { CurrentUser } from 'src/common/decorator/current-user.decorator';
 
 @UseGuards(JwtAuthGuard)
 @Controller('account')
@@ -10,12 +11,16 @@ export class AccountController {
   constructor(private readonly accountService: AccountService) {}
 
   @Post()
-  create(@Body() createAccountDto: CreateAccountDto) {
+  create(
+    @Body() createAccountDto: CreateAccountDto,
+    @CurrentUser('userId') userId: string
+  ) {
+    createAccountDto.userId = userId;
     return this.accountService.create(createAccountDto);
   }
 
   @Get()
-  findAll(@Query('userId') userId: string) {
+  findAll(@CurrentUser('userId') userId: string) {
     return this.accountService.findAll(userId);
   }
 

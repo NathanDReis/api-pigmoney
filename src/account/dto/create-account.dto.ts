@@ -8,7 +8,7 @@ export enum AccountType {
 }
 
 export class CreateAccountDto {
-    @IsNotEmpty({ message: 'Usuário é obrigatório' })
+    @IsOptional()
     @IsMongoId({ message: 'Usuário deve ser um ObjectId válido' })
     userId: string;
 

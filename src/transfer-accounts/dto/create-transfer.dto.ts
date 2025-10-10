@@ -1,7 +1,7 @@
-import { IsMongoId, IsNotEmpty, IsNumber, IsPositive } from "class-validator";
+import { IsMongoId, IsNotEmpty, IsNumber, IsOptional, IsPositive } from "class-validator";
 
 export class CreateTransferDto {
-    @IsNotEmpty({ message: 'Usuário é obrigatório' })
+    @IsOptional()
     @IsMongoId({ message: 'Usuário deve ser um ObjectId válido' })
     userId: string;
 

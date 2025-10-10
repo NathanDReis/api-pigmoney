@@ -12,7 +12,7 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-
+import { CurrentUser } from 'src/common/decorator/current-user.decorator';
 
 @Controller('user')
 export class UserController {
@@ -23,33 +23,31 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
-  @Get()
+  @Get('all')
   @UseGuards(JwtAuthGuard)
   findAll() {
     return this.userService.findAll();
   }
 
-  @Get(':id')
+  @Get()
   @UseGuards(JwtAuthGuard)
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(id);
+  findOne(@CurrentUser('userId') userId: string) {
+    return this.userService.findOne(userId);
   }
 
-  @Patch(':id')
+  @Patch()
   @UseGuards(JwtAuthGuard)
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(id, updateUserDto);
+  update(
+    @CurrentUser('userId') userId: string, 
+    @Body() updateUserDto: UpdateUserDto
+  ) {
+    return this.userService.update(userId, updateUserDto);
   }
 
-  @Delete(':id')
+  @Delete()
   @UseGuards(JwtAuthGuard)
-  remove(@Param('id') id: string) {
-    return this.userService.remove(id);
-  }
-
-  @Get('findByEmail/:email')
-  findByEmail(@Param('email') email: string) {
-    return this.userService.findByEmail(email);
+  remove(@CurrentUser('userId') userId: string) {
+    return this.userService.remove(userId);
   }
 
   @Patch('restore/:id')

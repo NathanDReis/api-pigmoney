@@ -3,6 +3,7 @@ import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { CurrentUser } from 'src/common/decorator/current-user.decorator';
 
 @Controller('category')
 export class CategoryController {
@@ -10,7 +11,11 @@ export class CategoryController {
 
   @Post()
   @UseGuards(JwtAuthGuard)
-  create(@Body() createCategoryDto: CreateCategoryDto) {
+  create(
+    @Body() createCategoryDto: CreateCategoryDto,
+    @CurrentUser('userId') userId: string
+  ) {
+    createCategoryDto.userId = userId;
     return this.categoryService.create(createCategoryDto);
   }
 

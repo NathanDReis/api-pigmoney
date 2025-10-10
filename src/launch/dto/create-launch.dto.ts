@@ -14,7 +14,7 @@ export enum LaunchType {
 }
 
 export class CreateLaunchDto {
-  @IsNotEmpty({ message: 'Usuário é obrigatório' })
+  @IsOptional()
   @IsMongoId({ message: 'Usuário deve ser um ObjectId válido' })
   userId: string;
 

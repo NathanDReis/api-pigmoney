@@ -12,6 +12,7 @@ import { TransferAccountsService } from './transfer-accounts.service';
 import { CreateTransferDto } from './dto/create-transfer.dto';
 import { UpdateTransferDto } from './dto/update-transfer.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { CurrentUser } from 'src/common/decorator/current-user.decorator';
 
 @UseGuards(JwtAuthGuard)
 @Controller('transfer-accounts')
@@ -19,12 +20,16 @@ export class TransferAccountsController {
   constructor(private readonly transferAccountsService: TransferAccountsService) {}
 
   @Post()
-  create(@Body() createTransferDto: CreateTransferDto) {
+  create(
+    @Body() createTransferDto: CreateTransferDto,
+    @CurrentUser('userId') userId: string
+  ) {
+    createTransferDto.userId = userId;
     return this.transferAccountsService.create(createTransferDto);
   }
 
-  @Get('findAll/:userId')
-  findAll(@Param('userId') userId: string) {
+  @Get()
+  findAll(@CurrentUser('userId') userId: string) {
     return this.transferAccountsService.findAll(userId);
   }
 

@@ -28,7 +28,7 @@ export class CategoryMongoRepository implements ICategoryRepository {
 
         return this.categoryModel
         .find(filter)
-        // .select('-userId')
+        .select('-userId -global')
         .exec();
     }
 

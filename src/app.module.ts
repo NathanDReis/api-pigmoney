@@ -26,19 +26,13 @@ import { TransferAccountsModule } from './transfer-accounts/transfer-accounts.mo
       }),
       inject: [ConfigService],
     }),
-    
+ 
     UserModule,
-    
     AuthModule,
-    
     LaunchModule,
-    
     CategoryModule,
-    
     AccountModule,
-    
     PerfilModule,
-        
     TransferAccountsModule
   ],
   controllers: [AppController],

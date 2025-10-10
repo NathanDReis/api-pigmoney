@@ -23,7 +23,7 @@ export class CreateCategoryDto {
     @IsString({ message: 'Cor deve ser uma string' })
     colorHex: string;
 
-    @IsNotEmpty({ message: 'Usuário é obrigatório' })
+    @IsOptional()
     @IsMongoId({ message: 'Usuário deve ser um ObjectId válido' })
     userId: string;
 
