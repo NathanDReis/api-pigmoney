@@ -1,5 +1,17 @@
 version: '3.8'
+
 services:
+  api:
+    build: .
+    container_name: finance-api
+    ports:
+      - '3000:3000'
+    env_file:
+      - .env.production
+    depends_on:
+      - mongodb
+    restart: always
+
   mongodb:
     image: mongo:latest
     container_name: finance-mongodb
@@ -9,6 +21,7 @@ services:
       MONGO_INITDB_DATABASE: finance-app
     volumes:
       - mongodb_data:/data/db
+    restart: always
 
 volumes:
   mongodb_data:
