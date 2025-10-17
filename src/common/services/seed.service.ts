@@ -23,12 +23,13 @@ export class SeedService implements OnApplicationBootstrap {
 
   async onApplicationBootstrap(): Promise<void> {
     let adminPerfil = await this.perfilService.findByName(perfilBase.name);
-    if (!!adminPerfil) return;
-
-    adminPerfil = await this.perfilService.create({
-        name: perfilBase.name,
-        permissions: perfilBase.permissions,
-    });
+    if (!adminPerfil) {
+        adminPerfil = await this.perfilService.create({
+            name: perfilBase.name,
+            permissions: perfilBase.permissions,
+        });
+        console.log("Perfil Criado!")
+    }
 
     const existingUser = await this.userService.findByEmail(userBase.email);
     if (!existingUser) {
@@ -40,6 +41,7 @@ export class SeedService implements OnApplicationBootstrap {
             userName: userBase.userName,
             password: userBase.password,
         });
+        console.log("Usuário Criado!")
     }
   }
 }
