@@ -10,6 +10,7 @@ import { CategoryModule } from './category/category.module';
 import { AccountModule } from './account/account.module';
 import { PerfilModule } from './perfil/perfil.module';
 import { TransferAccountsModule } from './transfer-accounts/transfer-accounts.module';
+import { SeedService } from './common/services/seed.service';
 
 @Module({
   imports: [
@@ -36,6 +37,6 @@ import { TransferAccountsModule } from './transfer-accounts/transfer-accounts.mo
     TransferAccountsModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, SeedService],
 })
 export class AppModule {}

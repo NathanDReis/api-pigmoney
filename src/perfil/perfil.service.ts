@@ -23,6 +23,10 @@ export class PerfilService {
     return this.perfilRepository.findById(id);
   }
 
+  async findByName(name: string): Promise<Perfil | null> {
+    return this.perfilRepository.findByName(name)
+  }
+
   async update(
     id: string, 
     updatePerfilDto: UpdatePerfilDto

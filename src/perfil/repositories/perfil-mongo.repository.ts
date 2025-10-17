@@ -25,6 +25,10 @@ export class PerfilMongoRepository implements IPerfilRepository {
     return this.perfilModel.findOne({ _id: id, isDeleted: false }).exec();
   }
 
+  async findByName(name: string): Promise<Perfil | null> {
+    return this.perfilModel.findOne({ name, isDeleted: false }).exec();
+  }
+
   async update(id: string, updatePerfilDto: UpdatePerfilDto): Promise<Perfil | null> {
     return this.perfilModel
       .findByIdAndUpdate(id, updatePerfilDto, { new: true })

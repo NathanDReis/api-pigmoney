@@ -6,6 +6,7 @@ export interface IPerfilRepository {
   create(createUserDto: CreatePerfilDto): Promise<Perfil>;
   findAll(): Promise<Perfil[]>;
   findById(id: string): Promise<Perfil | null>;
+  findByName(name: string): Promise<Perfil | null>;
   update(id: string, updatePerfilDto: UpdatePerfilDto): Promise<Perfil | null>;
   softDelete(id: string): Promise<Perfil | null>;
   restore(id: string): Promise<Perfil | null>;
