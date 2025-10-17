@@ -11,7 +11,7 @@ const userBase = {
     email: 'admin@pigmoney.com',
     userName: 'admin',
     password: 'p2i5g',
-    telephone: '',
+    telephone: '(31) 982777939',
 };
 
 @Injectable()
