@@ -34,14 +34,14 @@ export class UserController {
 
   @Get()
   // @UseGuards(JwtAuthGuard)
-  findOne(@CurrentUser('userId') userId: string) {
+  findOne(@Param('userId') userId: string) {
     return this.userService.findOne(userId);
   }
 
   @Patch()
   // @UseGuards(JwtAuthGuard)
   update(
-    @CurrentUser('userId') userId: string, 
+    @Param('userId') userId: string, 
     @Body() updateUserDto: UpdateUserDto
   ) {
     return this.userService.update(userId, updateUserDto);
@@ -49,7 +49,7 @@ export class UserController {
 
   @Delete()
   // @UseGuards(JwtAuthGuard)
-  remove(@CurrentUser('userId') userId: string) {
+  remove(@Param('userId') userId: string) {
     return this.userService.remove(userId);
   }
 
