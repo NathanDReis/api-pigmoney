@@ -20,11 +20,13 @@ export class UserService {
       throw new Error("Este usuário já existe");
     }
 
-    const commonPerfil = await this.perfilService.findByName("Comum");
-    if (!commonPerfil) {
-      throw new Error("Não foi possível criar seu usuário no momento. Tente novamente mais tarde");
+    if (!createUserDto.perfilId) {
+      const commonPerfil = await this.perfilService.findByName("Comum");
+      if (!commonPerfil) {
+        throw new Error("Não foi possível criar seu usuário no momento. Tente novamente mais tarde");
+      }
+      createUserDto.perfilId = commonPerfil._id?.toString();
     }
-    createUserDto.perfilId = commonPerfil._id?.toString();
 
     const salt = await bcrypt.genSalt();
     createUserDto.password = await bcrypt.hash(createUserDto.password, salt);
