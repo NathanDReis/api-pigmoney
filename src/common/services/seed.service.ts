@@ -10,7 +10,7 @@ const perfilBase = {
 const userBase = {
     email: 'admin@pigmoney.com',
     userName: 'admin',
-    password: 'p2i5g',
+    password: 'Teste@2025',
     telephone: '(31) 982777939',
 };
 
@@ -28,7 +28,6 @@ export class SeedService implements OnApplicationBootstrap {
             name: perfilBase.name,
             permissions: perfilBase.permissions,
         });
-        console.log("Perfil Criado!")
     }
 
     const existingUser = await this.userService.findByEmail(userBase.email);
@@ -41,7 +40,6 @@ export class SeedService implements OnApplicationBootstrap {
             userName: userBase.userName,
             password: userBase.password,
         });
-        console.log("Usuário Criado!")
     }
   }
 }
