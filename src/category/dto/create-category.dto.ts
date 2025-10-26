@@ -25,9 +25,9 @@ export class CreateCategoryDto {
 
     @IsOptional()
     @IsMongoId({ message: 'Usuário deve ser um ObjectId válido' })
-    userId: string;
+    userId?: string;
 
     @IsOptional()
     @IsBoolean()
-    global: boolean;
+    global?: boolean;
 }

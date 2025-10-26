@@ -19,6 +19,10 @@ export class CategoryService {
     return this.categoryRepository.findAll(userId);
   }
 
+  async findByName(name: string): Promise<Category | null> {
+    return this.categoryRepository.findByName(name)
+  }
+
   async update(
     id: string, 
     updateCategoryDto: UpdateCategoryDto

@@ -5,7 +5,8 @@ import {
   MinLength,
   MaxLength,
   Matches, 
-  IsMongoId
+  IsMongoId,
+  IsOptional
 } from 'class-validator';
 
 export class CreateUserDto {
@@ -23,9 +24,9 @@ export class CreateUserDto {
   @IsString({ message: 'Telefone deve ser uma string' })
   telephone: string;
 
-  @IsNotEmpty({ message: 'Perfil é obrigatório' })
+  @IsOptional()
   @IsMongoId({ message: 'Perfil deve ser um ObjectId válido' })
-  perfilId: string;
+  perfilId?: string;
 
   @IsNotEmpty({ message: 'Nome de usuário é obrigatório' })
   @IsString({ message: 'Nome de usuário deve ser uma string' })

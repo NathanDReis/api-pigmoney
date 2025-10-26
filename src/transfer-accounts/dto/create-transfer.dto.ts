@@ -3,7 +3,7 @@ import { IsMongoId, IsNotEmpty, IsNumber, IsOptional, IsPositive } from "class-v
 export class CreateTransferDto {
     @IsOptional()
     @IsMongoId({ message: 'Usuário deve ser um ObjectId válido' })
-    userId: string;
+    userId?: string;
 
     @IsNotEmpty({ message: 'Conta de origem é obrigatório' })
     @IsMongoId({ message: 'Conta de origem deve ser um ObjectId válido' })

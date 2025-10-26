@@ -28,8 +28,12 @@ export class CategoryMongoRepository implements ICategoryRepository {
 
         return this.categoryModel
         .find(filter)
-        .select('-userId -global')
+        .select('-userId -global -isDeleted -deletedAt -deletedBy')
         .exec();
+    }
+
+    async findByName(name: string): Promise<Category | null> {
+        return this.categoryModel.findOne({ name, isDeleted: false }).exec();
     }
 
     async update(id: string, updateCategoryDto: UpdateCategoryDto): Promise<Category | null> {

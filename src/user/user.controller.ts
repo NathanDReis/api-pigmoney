@@ -6,15 +6,15 @@ import {
   Patch, 
   Param, 
   Delete, 
-  // UseGuards
+  UseGuards
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-// import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CurrentUser } from 'src/common/decorator/current-user.decorator';
-// import { PermissionsGuard } from 'src/auth/guards/permissions.guard';
-// import { Permissions } from 'src/common/decorator/permissions.decorator';
+import { PermissionsGuard } from 'src/auth/guards/permissions.guard';
+import { Permissions } from 'src/common/decorator/permissions.decorator';
 
 @Controller('user')
 export class UserController {
@@ -26,43 +26,43 @@ export class UserController {
   }
 
   @Get('all')
-  // @UseGuards(JwtAuthGuard, PermissionsGuard)
-  // @Permissions('admin', 'user')
+  @UseGuards(JwtAuthGuard, PermissionsGuard)
+  @Permissions('admin', 'user')
   findAll() {
     return this.userService.findAll();
   }
 
   @Get()
-  // @UseGuards(JwtAuthGuard)
-  findOne(@Param('userId') userId: string) {
+  @UseGuards(JwtAuthGuard)
+  findOne(@CurrentUser('userId') userId: string) {
     return this.userService.findOne(userId);
   }
 
   @Patch()
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   update(
-    @Param('userId') userId: string, 
+    @CurrentUser('userId') userId: string, 
     @Body() updateUserDto: UpdateUserDto
   ) {
     return this.userService.update(userId, updateUserDto);
   }
 
   @Delete()
-  // @UseGuards(JwtAuthGuard)
-  remove(@Param('userId') userId: string) {
+  @UseGuards(JwtAuthGuard)
+  remove(@CurrentUser('userId') userId: string) {
     return this.userService.remove(userId);
   }
 
   @Patch('restore/:id')
-  // @UseGuards(JwtAuthGuard, PermissionsGuard)
-  // @Permissions('admin')
+  @UseGuards(JwtAuthGuard, PermissionsGuard)
+  @Permissions('admin')
   restore(@Param('id') id: string) {
     return this.userService.restore(id);
   }
 
   @Delete('hardDelete/:id')
-  // @UseGuards(JwtAuthGuard, PermissionsGuard)
-  // @Permissions('admin')
+  @UseGuards(JwtAuthGuard, PermissionsGuard)
+  @Permissions('admin')
   hardDelete(@Param('id') id: string) {
     return this.userService.hardDelete(id);
   }
