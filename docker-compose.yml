@@ -1,11 +1,11 @@
-version: '3.8'
+version: '3.9'
 
 services:
   api:
     build: .
-    container_name: finance-api
+    container_name: api-pigmoney
     ports:
-      - '3000:3000'
+      - '3001:3000'
     env_file:
       - .env.production
     depends_on:
@@ -14,11 +14,11 @@ services:
 
   mongodb:
     image: mongo:latest
-    container_name: finance-mongodb
+    container_name: mongodb-pigmoney
     ports:
       - '27017:27017'
     environment:
-      MONGO_INITDB_DATABASE: finance-app
+      MONGO_INITDB_DATABASE: app-pigmoney
     volumes:
       - mongodb_data:/data/db
     restart: always
