@@ -33,7 +33,6 @@ export class PerfilController {
   }
 
   @Get(':id')
-  @Permissions('admin', 'perfil')
   findOne(@Param('id') id: string) {
     return this.perfilService.findOne(id);
   }

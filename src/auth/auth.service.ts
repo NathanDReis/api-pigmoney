@@ -3,13 +3,11 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UserService } from '../user/user.service';
 import { User } from 'src/user/schemas/user.schema';
-import { PerfilService } from 'src/perfil/perfil.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UserService,
-    private perfilService: PerfilService,
     private jwtService: JwtService,
   ) {}
 
@@ -22,9 +20,6 @@ export class AuthService {
   }
 
   async login(user: User) { 
-    const perfil = await this.perfilService.findOne(user.perfilId.toString());
-    const permissions = perfil?.permissions ? perfil?.permissions : [];
-
     const payload = { 
       email: user.email, 
       sub: user._id,
@@ -38,7 +33,7 @@ export class AuthService {
         userName: user.userName,
         email: user.email,
         telephone: user.telephone,
-        perfil: JSON.stringify(permissions),
+        perfil: user.perfilId,
       },
     };
   }
