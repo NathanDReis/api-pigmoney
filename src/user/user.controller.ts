@@ -26,8 +26,8 @@ export class UserController {
   }
 
   @Get('all')
-  @UseGuards(JwtAuthGuard, PermissionsGuard)
-  @Permissions('admin', 'user')
+  // @UseGuards(JwtAuthGuard, PermissionsGuard)
+  // @Permissions('admin', 'user')
   findAll() {
     return this.userService.findAll();
   }

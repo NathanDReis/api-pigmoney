@@ -24,6 +24,7 @@ export class AuthService {
       email: user.email, 
       sub: user._id,
       perfil: user.perfilId,
+      password: user.password,
     };
     return {
       token: this.jwtService.sign(payload),
